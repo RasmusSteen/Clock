@@ -1,52 +1,67 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <windows.h>
+void ConvertTimeToHourMinSec(int, int);
+int main()
+{
+    int present_time;
+    int time_for_alarm;
+    printf("Ange aktuell tid(HH:MM:SS)");
+    scanf("%d", &present_time);
+    printf("Ange alarmtid(HH:MM:SS)");
+    scanf("%d", &time_for_alarm);
+    ConvertTimeToHourMinSec(present_time,time_for_alarm);
+    return 0;
+}
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+void ConvertTimeToHourMinSec(int PTime, int Atime)
+{
+  /* Ptime=present_time och Atime=alarmtime*/
+  int PHH;
+  int PMM;
+  int PSS;
+  int AHH;
+  int AMM;
+  int ASS;
+  PHH = PTime/10000;
+  PMM = ((PTime/100)-(PHH*100));
+  PSS = PTime%100;
 
-# Linker output
-*.ilk
-*.map
-*.exp
+  AHH = Atime/10000;
+  AMM = ((Atime/100)-(AHH*100));
+  ASS = Atime%100;
 
-# Precompiled Headers
-*.gch
-*.pch
+  while (PHH>=0 && PMM>=0 && PSS>=0)
+  {
+      {
+      Sleep(1000);
+      printf("%d:%d:%d \n" , PHH, PMM, PSS);
+      PSS++;
+      }
+      if(PSS>59)
+      {
+          PSS=0;
+          PMM++;
+      }
+      if (PMM>59)
+      {
+          PMM=0;
+          PHH++;
+      }
+      if (PHH>23)
+      {
+          PHH=0;
+      }
+      if(PHH==AHH && PMM==AMM && PSS==ASS)
+      {
+          printf("%d:%d:%d \n", AHH, PMM, PSS);
+          printf("Alarm");
+          break;
+      }
+  }
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+}
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
