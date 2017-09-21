@@ -55,8 +55,8 @@ void ConvertTimeToHourMinSec(int PTime, int Atime)
       }
       if(PHH==AHH && PMM==AMM && PSS==ASS)
       {
-          printf("%d:%d:%d \n", AHH, PMM, PSS);
-          printf("Alarm");
+          Sleep(1000);
+          printf("%d:%d:%d", AHH, AMM, ASS);
           break;
       }
   }
